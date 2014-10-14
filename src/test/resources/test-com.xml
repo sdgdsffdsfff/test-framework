@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Test>
+    <class>com.baidu.softquery.SoftQuery</class>
+    <methods>
+        <method>
+            <name>ping</name>
+        </method>
+        <method>
+            <name>GetTinySofts</name>
+            <params>
+                <enum>f_idASC</enum>
+                <int>15</int>
+                <!--非基本类型参数-->
+                <DeviceInfo>
+                    <pad>
+                        <enum>Pad</enum>
+                    </pad>
+                    <Fwversion>
+                        <enum>IPhone</enum>
+                    </Fwversion>
+                    <Platform>
+                        <enum>iPhone</enum>
+                    </Platform>
+                </DeviceInfo>
+            </params>
+        </method>
+    </methods>
+</Test>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Test>
+<class>com.baidu.thrift.Hello</class>
+    <methods>
+        <method>
+            <name>sayHello</name>
+            <params>
+                <String>world</String>
+                <int>3</int>
+            </params>
+        </method>
+    </methods>
+</Test>
