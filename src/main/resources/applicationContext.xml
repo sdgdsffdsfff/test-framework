@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <bean id="config" class="com.baidu.testframework.core.Config">
+        <property name="serviceName">
+            <value>com.baidu.testframework.example.Hello</value>
+        </property>
+        <property name="methods">
+            <map>
+                <entry key="sayHello" value-ref="sayHello"/>
+                <entry key="GetTinySofts" value-ref="GetTinySofts"/>
+            </map>
+        </property>
+    </bean>
+
+    <util:list id="sayHello">
+        <value>world</value>
+        <value>3</value>
+    </util:list>
+
+    <util:list id="GetTinySofts">
+        <value>f_idASC</value>
+        <value>15</value>
+        <value>{pad:Pad,Fwversion:IPhone,Platform:iPhone}</value>
+    </util:list>
+</beans>
