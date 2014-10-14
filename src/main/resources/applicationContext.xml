@@ -6,7 +6,8 @@
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
-    <bean id="config" class="com.baidu.testframework.core.Config">
+
+    <bean id="config" class="com.baidu.testframework.config.MethodConfig">
         <property name="serviceName">
             <value>com.baidu.testframework.example.Hello</value>
         </property>

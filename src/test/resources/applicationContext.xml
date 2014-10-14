@@ -4,9 +4,10 @@
        xmlns:util="http://www.springframework.org/schema/util"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <bean id="config" class="com.baidu.testframework.core.Config">
+
+    <bean id="config" class="com.baidu.testframework.config.MethodConfig">
         <property name="serviceName">
             <value>com.baidu.testframework.example.Hello</value>
         </property>
