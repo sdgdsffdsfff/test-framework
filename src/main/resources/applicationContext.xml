@@ -27,6 +27,6 @@
     <util:list id="GetTinySofts">
         <value>f_idASC</value>
         <value>15</value>
-        <value>{pad:Pad,Fwversion:IPhone,Platform:iPhone}</value>
+        <value>{pad:Pad,Fwversion:iPhone,Platform:iPhone}</value>
     </util:list>
 </beans>

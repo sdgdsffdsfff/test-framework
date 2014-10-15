@@ -1,5 +1,6 @@
 package com.baidu.testframework;
 
+import com.baidu.testframework.example.Hello;
 import org.apache.thrift.TServiceClient;
 import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.protocol.TProtocol;
@@ -25,7 +26,7 @@ public class ReflectionTest {
     @Before
     public void setUp() throws Exception {
 
-        demo = Class.forName("com.baidu.test.Hello");
+        demo = Class.forName("com.baidu.testframework.example.Hello");
 
     }
 
@@ -49,8 +50,8 @@ public class ReflectionTest {
     //带有参数的方法调用
     @Test
     public void testGetMethod() throws Exception {
-        Method method = demo.getMethod("sayHello",String.class,int.class);
-        String s = (String)method.invoke(demo.newInstance(),"world",3);
+        Method method = demo.getDeclaredMethod("sayHello",String.class,int.class);
+        String s = (String)method.invoke(demo.newInstance(),"world","3");
         System.out.println(s);
     }
     //获取方法参数
@@ -126,5 +127,29 @@ public class ReflectionTest {
         System.out.println("invoke method:" + sayEnum.invoke(demo.newInstance(),"a",Enum.valueOf(enumClass,"f_idASC")));
     }
 
+    @Test
+    public void testErase() throws Exception {
+        Class c = Child.class;
+        Object child = c.newInstance();
+        Pool pool = new Pool(child);
+        Object obj = pool.get();
+        Method m = c.getDeclaredMethod("sayChild");
+        m.invoke(obj);
+    }
 
+    @Test
+    public void testIntReflectAndNew() throws Exception {
+        Class intClass = int.class;
+        System.out.println(intClass.isPrimitive());
+        System.out.println(Integer.class.getConstructor(String.class).newInstance("3"));
+    }
+
+    @Test
+    public void testStringReflectAndNew() throws Exception {
+        Class stringClass = String.class;
+        System.out.println(stringClass.getSimpleName());
+        System.out.println(stringClass.isPrimitive());
+        System.out.println(stringClass.getConstructor(String.class).newInstance("hello,world"));
+
+    }
 }

@@ -3,7 +3,7 @@
 //import com.baidu.dsf.DSFramework;
 //import com.baidu.dsf.adaptor.ServiceAdaptor;
 //import com.baidu.dsf.pool.PooledClientSource;
-//import com.baidu.testframework.SoftSortOption;
+//import com.baidu.testframework.example.SoftSortOption;
 //import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
@@ -16,9 +16,9 @@
 //import java.util.Map;
 //
 ///**
-// *
-// * @author nelson
-// */
+//*
+//* @author nelson
+//*/
 //public class StressTest implements ITest {
 //    private static Logger logger = LoggerFactory.getLogger(StressTest.class.getName());
 //    private String serviceName;

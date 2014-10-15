@@ -1,7 +1,5 @@
 package com.baidu.testframework.example;
 
-import com.baidu.testframework.SoftSortOption;
-
 /**
  * Created by edwardsbean on 14-10-14.
  */
