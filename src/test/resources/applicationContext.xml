@@ -6,15 +6,13 @@
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-
     <bean id="config" class="com.baidu.testframework.config.MethodConfig">
         <property name="serviceName">
-            <value>com.baidu.testframework.example.Hello</value>
+            <value>com.baidu.testframework.example.ComplexHello</value>
         </property>
         <property name="methods">
             <map>
                 <entry key="sayHello" value-ref="sayHello"/>
-                <entry key="GetTinySofts" value-ref="GetTinySofts"/>
             </map>
         </property>
     </bean>
@@ -22,11 +20,7 @@
     <util:list id="sayHello">
         <value>world</value>
         <value>3</value>
+        <value>{name:edwardsbean,age:23,MAN,job:{name:码农}}</value>
     </util:list>
 
-    <util:list id="GetTinySofts">
-        <value>f_idASC</value>
-        <value>15</value>
-        <value>{pad:Pad,Fwversion:IPhone,Platform:iPhone}</value>
-    </util:list>
 </beans>

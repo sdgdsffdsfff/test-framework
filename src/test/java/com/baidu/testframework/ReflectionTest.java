@@ -128,16 +128,6 @@ public class ReflectionTest {
     }
 
     @Test
-    public void testErase() throws Exception {
-        Class c = Child.class;
-        Object child = c.newInstance();
-        Pool pool = new Pool(child);
-        Object obj = pool.get();
-        Method m = c.getDeclaredMethod("sayChild");
-        m.invoke(obj);
-    }
-
-    @Test
     public void testIntReflectAndNew() throws Exception {
         Class intClass = int.class;
         System.out.println(intClass.isPrimitive());
@@ -152,4 +142,5 @@ public class ReflectionTest {
         System.out.println(stringClass.getConstructor(String.class).newInstance("hello,world"));
 
     }
+
 }
