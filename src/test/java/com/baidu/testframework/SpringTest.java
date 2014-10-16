@@ -18,13 +18,12 @@ public class SpringTest {
 
     @Test
     public void testGetMethodList() throws Exception {
-        System.out.println("get service name:" + config.getServiceName());
         System.out.println("get method and param:");
-        for (String key:config.getMethods().keySet()){
-            System.out.println("method:" + key);
-            for (String param:config.getMethods().get(key)){
-                System.out.println("param:" + param);
-            }
-        }
+//        for (String key:config.getMethods().keySet()){
+//            System.out.println("method:" + key);
+//            for (String param:config.getMethods().get(key)){
+//                System.out.println("param:" + param);
+//            }
+//        }
     }
 }

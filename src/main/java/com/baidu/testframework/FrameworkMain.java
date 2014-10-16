@@ -3,6 +3,7 @@ package com.baidu.testframework;
 import com.baidu.testframework.config.FrameworkConfig;
 import com.baidu.testframework.config.MethodConfig;
 import com.baidu.testframework.core.FrameworkManager;
+import com.google.common.base.Preconditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -20,7 +21,11 @@ public class FrameworkMain {
             context = new ClassPathXmlApplicationContext("applicationContext.xml", "basic.xml");
             MethodConfig config = (MethodConfig) context.getBean("config");
             FrameworkConfig frameworkConfig = (FrameworkConfig) context.getBean("frameworkConfig");
-            checkConfig(frameworkConfig);
+            log.info("Checking configuation");
+            frameworkConfig.checkConfig();
+            log.info("Checking method configuration");
+            config.setServiceInterface(frameworkConfig.getTestClazz());
+            config.checkConfig();
             FrameworkManager frameworkManager = new FrameworkManager(config, frameworkConfig);
             frameworkManager.startApplication();
             final FrameworkManager reference = frameworkManager;
@@ -36,16 +41,5 @@ public class FrameworkMain {
         }
     }
 
-    public static void checkConfig(FrameworkConfig frameworkConfig) throws Exception {
-        log.info("Checking configuration");
-        if (frameworkConfig.getServiceName() == null) {
-            throw new Exception("serviceName is not  configured");
-        }
-//        frameworkConfig.checkServiceClass();
-        /**
-         * Todo
-         * 添加其他配置检查
-         * 方法参数类型是否存在
-         */
-    }
+
 }

@@ -8,9 +8,6 @@
 
 
     <bean id="config" class="com.baidu.testframework.config.MethodConfig">
-        <property name="serviceName">
-            <value>com.baidu.testframework.example.Hello</value>
-        </property>
         <property name="methods">
             <map>
                 <entry key="sayHello" value-ref="sayHello"/>

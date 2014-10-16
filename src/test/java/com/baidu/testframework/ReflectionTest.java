@@ -25,9 +25,7 @@ public class ReflectionTest {
 
     @Before
     public void setUp() throws Exception {
-
         demo = Class.forName("com.baidu.testframework.example.Hello");
-
     }
 
     @Test

@@ -23,7 +23,7 @@ dependencies {
     compile "org.springframework:spring-aop:3.2.8.RELEASE"
     compile "org.springframework:spring-expression:3.2.8.RELEASE"
     compile "org.springframework:spring-test:3.2.8.RELEASE"
-    compile "com.typesafe:config:1.2.1"
+    compile "com.google.guava:guava:11.0.2"
 }
 
 jar {

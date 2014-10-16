@@ -33,6 +33,7 @@ public class FrameworkManager {
     }
 
     public void startApplication() {
+        init();
         MethodSelector methodSelector = new RandomMethodSelector();
         for (int index = 0; index < frameworkConfig.getClientServerCount(); index++) {
             ClientServer clientServer = new ClientServer("clientServer" + index,methodConfig,methodSelector,clientConfigProvider);
@@ -41,11 +42,12 @@ public class FrameworkManager {
     }
 
     public void stopApplication() {
-
+        /**
+         * TODO
+         */
     }
 
     public void init() {
-
         performanceStat = new PerformanceStat(10);
         InetSocketAddress[] addrs = parseSocketAddrArray(frameworkConfig.getRegAddrsCfg());
         DSFramework.start(addrs, "softquery", 200);
