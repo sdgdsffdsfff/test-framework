@@ -38,4 +38,12 @@ public class MethodConfig {
         reflectMethods = ReflectionUtil.getMethodReflection(serviceInterface, methods);
         paramChecked = true;
     }
+
+    public Map<String, List<String>> getMethods() {
+        return methods;
+    }
+
+    public void setMethods(Map<String, List<String>> methods) {
+        this.methods = methods;
+    }
 }

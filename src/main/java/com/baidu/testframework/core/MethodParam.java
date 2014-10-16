@@ -1,6 +1,7 @@
 package com.baidu.testframework.core;
 
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -24,5 +25,13 @@ public class MethodParam {
 
     public void setMethodParam(Object[] methodParam) {
         this.methodParam = methodParam;
+    }
+
+    @Override
+    public String toString() {
+        return "MethodParam{" +
+                "method=" + method.getName() +
+                ", methodParam=" + Arrays.toString(methodParam) +
+                '}';
     }
 }

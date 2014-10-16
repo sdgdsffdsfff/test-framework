@@ -46,7 +46,7 @@ public class ReflectionUtil {
                 log.debug("Parse member value->" + memberValueString);
                 //调用instance.setMember方法
                 for (Method method : methods) {
-                    if (method.getName().toLowerCase().equals("set" + memberClassString)) {
+                    if (method.getName().toLowerCase().equals("set" + memberClassString.toLowerCase())) {
                         //通过setMember方法的参数来获得member的Class
                         Class[] methodclasses = method.getParameterTypes();
                         //成员变量为嵌套复杂类型
@@ -130,6 +130,7 @@ public class ReflectionUtil {
                 methodParam.setMethod(method[i]);
                 methodParam.setMethodParam(paramInstances);
                 reflectMethods.add(methodParam);
+                log.debug(methodParam.toString());
             }
         }
         return reflectMethods;

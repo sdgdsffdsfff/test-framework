@@ -1,7 +1,7 @@
 #
 # Project specific excludes
 #
-
+logs
 #
 # Default excludes
 #

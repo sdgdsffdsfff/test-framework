@@ -19,7 +19,7 @@ public class FrameworkConfig {
     private int clientServerCount;
     @Value("${tf.client.thread}")
     private int clientThreadCount;
-    @Value("{tf.client.request.delay}")
+    @Value("${tf.client.request.delay}")
     private int requestDelay;
     //被测试的接口类
     private Class testClazz;
@@ -84,7 +84,7 @@ public class FrameworkConfig {
         Preconditions.checkNotNull(serviceName,
                 "tf.register.service.name is not configured");
         try {
-            testClazz = Class.forName(serviceName.split(" ")[0] + "$Client");
+            testClazz = Class.forName(serviceName.split(" ")[0] + "$Iface");
         } catch (ClassNotFoundException e) {
             throw new ClassNotFoundException("请导入Thrift接口包");
         }

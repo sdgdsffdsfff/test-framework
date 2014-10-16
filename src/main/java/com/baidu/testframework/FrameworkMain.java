@@ -3,7 +3,6 @@ package com.baidu.testframework;
 import com.baidu.testframework.config.FrameworkConfig;
 import com.baidu.testframework.config.MethodConfig;
 import com.baidu.testframework.core.FrameworkManager;
-import com.google.common.base.Preconditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;

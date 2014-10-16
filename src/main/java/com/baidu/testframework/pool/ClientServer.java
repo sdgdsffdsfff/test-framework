@@ -17,11 +17,11 @@ import java.lang.reflect.Method;
  * 客户端服务器
  * Created by edwardsbean on 14-10-15.
  */
-public class ClientServer<T> {
+public class ClientServer {
     private final static Logger log = LoggerFactory.getLogger(ClientServer.class.getName());
 
     private final String name;
-    private final IClientSource<T> source;
+    private final IClientSource source;
     private ClientConfigProvider clientConfigProvider;
     private MethodConfig methodConfig;
     private MethodSelector methodSelector;
@@ -72,7 +72,7 @@ public class ClientServer<T> {
         }
 
         private void request() throws Throwable {
-            T client = source.getClient();
+            Object client = source.getClient();
             long currentTime = System.currentTimeMillis();
             try {
                 /**
