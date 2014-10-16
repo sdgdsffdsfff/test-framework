@@ -28,5 +28,6 @@
         <value>f_idASC</value>
         <value>15</value>
         <value>{pad:Pad,Fwversion:iPhone,Platform:iPhone}</value>
+        <!--<value>{pad:Pad,Fwversion:iPhone,Platform:iPhone,Type:{name:mobile}}</value>-->
     </util:list>
 </beans>

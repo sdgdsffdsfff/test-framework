@@ -14,16 +14,11 @@ public class RandomMethodSelector implements MethodSelector {
     }
 
     @Override
-    public MethodParam getMethod(Map<String, List<String>> methods) {
+    public MethodParam getMethod(List<MethodParam> methods) {
         if (methods != null && !methods.isEmpty()) {
             int radomIndex = random.nextInt(methods.size());
-            List<String> keys = new ArrayList<String>(methods.keySet());
-            String randomKey = keys.get(radomIndex);
-            List<String> value = methods.get(randomKey);
-            MethodParam methodParam = new MethodParam();
-//            methodParam.setMethodName(randomKey);
-//            methodParam.setMethodParam(value);
-            return methodParam;
+            return methods.get(radomIndex);
+
         }
         return null;
     }

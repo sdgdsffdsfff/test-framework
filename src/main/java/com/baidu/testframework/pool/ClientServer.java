@@ -78,10 +78,9 @@ public class ClientServer<T> {
                 /**
                  * RPC请求
                  */
-//                MethodParam methodParam = methodSelector.getMethod(methodConfig.getMethods());
-//                Class clientClass = methodConfig.getServiceClass();
-//                Method method = clientClass.getDeclaredMethod(methodParam.getMethodName());
-//                method.invoke(client,methodParam.getMethodParam());
+                MethodParam methodParam = methodSelector.getMethod(methodConfig.getReflectMethods());
+                Method method = methodParam.getMethod();
+                method.invoke(client,methodParam.getMethodParam());
             } finally {
                 source.returnClient(client);
             }
