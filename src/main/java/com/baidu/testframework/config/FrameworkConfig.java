@@ -21,8 +21,28 @@ public class FrameworkConfig {
     private int clientThreadCount;
     @Value("${tf.client.request.delay}")
     private int requestDelay;
+    @Value("${tf.report.ganglia.adds}")
+    private String gangliaAddrsCfg;
+    @Value("${tf.report.name}")
+    private String reportName;
     //被测试的接口类
     private Class testClazz;
+
+    public String getGangliaAddrsCfg() {
+        return gangliaAddrsCfg;
+    }
+
+    public void setGangliaAddrsCfg(String gangliaAddrsCfg) {
+        this.gangliaAddrsCfg = gangliaAddrsCfg;
+    }
+
+    public String getReportName() {
+        return reportName;
+    }
+
+    public void setReportName(String reportName) {
+        this.reportName = reportName;
+    }
 
     public Class getTestClazz() {
         return testClazz;
@@ -87,6 +107,11 @@ public class FrameworkConfig {
             testClazz = Class.forName(serviceName.split(" ")[0] + "$Iface");
         } catch (ClassNotFoundException e) {
             throw new ClassNotFoundException("请导入Thrift接口包");
+        }
+        if (gangliaAddrsCfg != null) {
+            if (reportName == null) {
+                reportName = "StressTest";
+            }
         }
         Preconditions.checkNotNull(regAddrsCfg,
                 "tf.register.server.adds is not configured");

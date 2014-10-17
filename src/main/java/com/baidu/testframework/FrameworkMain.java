@@ -26,6 +26,7 @@ public class FrameworkMain {
             config.setServiceInterface(frameworkConfig.getTestClazz());
             config.checkConfig();
             FrameworkManager frameworkManager = new FrameworkManager(config, frameworkConfig);
+            frameworkManager.initStatistics();
             frameworkManager.startApplication();
             frameworkManager.startReport();
             final FrameworkManager reference = frameworkManager;
