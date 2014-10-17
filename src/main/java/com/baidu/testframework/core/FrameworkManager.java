@@ -60,6 +60,11 @@ public class FrameworkManager {
         }
     }
 
+    public void printResult() {
+        StatTask statTask = new StatTask("统计结果");
+        statTask.start();
+    }
+
     private InetSocketAddress[] parseSocketAddrArray(String cfgStr) {
         String[] cfgList = cfgStr.split(";");
         int count = cfgList.length;

@@ -2,6 +2,7 @@
 # Project specific excludes
 #
 logs
+src/main/java/com/baidu/softquery
 #
 # Default excludes
 #

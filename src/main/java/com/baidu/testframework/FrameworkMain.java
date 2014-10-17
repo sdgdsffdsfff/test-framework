@@ -27,6 +27,7 @@ public class FrameworkMain {
             config.checkConfig();
             FrameworkManager frameworkManager = new FrameworkManager(config, frameworkConfig);
             frameworkManager.startApplication();
+            frameworkManager.printResult();
             final FrameworkManager reference = frameworkManager;
             Runtime.getRuntime().addShutdownHook(new Thread("agent-shutdown-hook") {
                 @Override
