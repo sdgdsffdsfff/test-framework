@@ -29,6 +29,7 @@ dependencies {
     compile "org.springframework:spring-expression:3.2.8.RELEASE"
     compile "org.springframework:spring-test:3.2.8.RELEASE"
     compile "com.google.guava:guava:11.0.2"
+    compile "io.dropwizard.metrics:metrics-core:3.1.0"
 }
 
 jar {

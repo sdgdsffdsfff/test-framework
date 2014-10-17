@@ -7,10 +7,14 @@ import com.baidu.testframework.config.ClientConfigProvider;
 import com.baidu.testframework.config.FrameworkConfig;
 import com.baidu.testframework.config.MethodConfig;
 import com.baidu.testframework.pool.ClientServer;
+import com.codahale.metrics.ConsoleReporter;
+import com.codahale.metrics.MetricRegistry;
+import com.codahale.metrics.Timer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.net.InetSocketAddress;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by edwardsbean on 14-10-14.
@@ -20,7 +24,8 @@ public class FrameworkManager {
     private MethodConfig methodConfig;
     private FrameworkConfig frameworkConfig;
     private ClientConfigProvider clientConfigProvider;
-    public static PerformanceStat performanceStat;
+    public static final MetricRegistry metricRegistry = new MetricRegistry();
+    public static final Timer timer = metricRegistry.timer(MetricRegistry.name(FrameworkManager.class,"framework-calculation"));
 
     public FrameworkManager(MethodConfig methodConfig, FrameworkConfig frameworkConfig) {
         this.methodConfig = methodConfig;
@@ -49,7 +54,6 @@ public class FrameworkManager {
     }
 
     public void init() {
-        performanceStat = new PerformanceStat(10);
         InetSocketAddress[] addrs = parseSocketAddrArray(frameworkConfig.getRegAddrsCfg());
         DSFramework.start(addrs, "test-framework", 200);
         ServiceAdaptor.subscribeService(frameworkConfig.getServiceName());
@@ -60,9 +64,13 @@ public class FrameworkManager {
         }
     }
 
-    public void printResult() {
-        StatTask statTask = new StatTask("统计结果");
-        statTask.start();
+    public void startReport() {
+        //注册metrics,每个1秒打印metrics到控制台
+        ConsoleReporter reporter = ConsoleReporter.forRegistry(metricRegistry)
+                .convertRatesTo(TimeUnit.SECONDS)
+                .convertDurationsTo(TimeUnit.MILLISECONDS)
+                .build();
+        reporter.start(1, TimeUnit.SECONDS);
     }
 
     private InetSocketAddress[] parseSocketAddrArray(String cfgStr) {
