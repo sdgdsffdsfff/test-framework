@@ -17,7 +17,7 @@ public class InterfaceDownloader {
     private final static Logger log = LoggerFactory.getLogger(InterfaceDownloader.class.getName());
 
     public static void main(String[] args) throws Exception {
-        log.info("Start test framework");
+        log.info("Checking interface jar");
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("basic.xml");
         FrameworkConfig frameworkConfig = (FrameworkConfig)  context.getBean("frameworkConfig");
         String serviceName = frameworkConfig.getServiceName();
@@ -26,6 +26,6 @@ public class InterfaceDownloader {
         Preconditions.checkNotNull(webToolAddrs,"Web tool platform address not configured");
         List<Page> pages = WebPlatTool.getAllService(webToolAddrs);
         String id = WebPlatTool.getServiceId(serviceName,pages);
-        WebPlatTool.download(webToolAddrs,id, ".");
+        WebPlatTool.download(webToolAddrs,id, "lib");
     }
 }

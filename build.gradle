@@ -41,6 +41,12 @@ jar {
     }
 }
 
+
+task cleanBefore<<{
+    delete 'dist'
+}
+cleanBefore.dependsOn(clean)
+
 task publish <<{
     copy{
         from 'build/libs/'
@@ -61,15 +67,9 @@ task publish <<{
 }
 publish.dependsOn(assemble)
 
-task cleanDist<<{
-    delete 'dist'
-}
-cleanDist.dependsOn(clean)
-
 task run<<{
     exec{
         executable 'dist/test-framework/bin/run'
     }
 }
-run.dependsOn(cleanDist)
-run.dependsOn(publish)
+run.dependsOn(cleanBefore)
