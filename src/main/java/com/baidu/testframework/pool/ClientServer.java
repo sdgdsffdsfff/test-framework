@@ -42,6 +42,7 @@ public class ClientServer {
 
     public void run() {
         for (int i = 0; i < clientConfigProvider.getClientThreadCount(); i++) {
+            log.info(name + " Create request task " + i);
             RequestTask requestTask = new RequestTask(name + " request " + i);
             requestTask.start();
         }
