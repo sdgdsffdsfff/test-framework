@@ -3,6 +3,11 @@ apply plugin: 'java'
 sourceCompatibility = 1.7
 version = '1.0'
 
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+if (!hasProperty('mainClass')) {
+    ext.mainClass = 'com.baidu.testframework.FrameworkMain'
+}
 repositories {
     mavenLocal()
     maven { url "http://maven.scm.baidu.com:8081/nexus/content/groups/public/" }
@@ -29,6 +34,26 @@ dependencies {
 jar {
     manifest {
         attributes 'Main-Class': "com.baidu.testframework.FrameworkMain"
-        //    attributes "Class-Path": configurations.runtime.collect { 'lib/'+it.getName() }.join(' ')
+        attributes "Class-Path": configurations.runtime.collect { 'lib/'+it.getName() }.join(' ')
     }
 }
+
+task publish <<{
+    copy{
+        from 'build/libs/'
+        into 'dist/test-framework'
+    }
+    copy{
+        from 'bin/'
+        into 'dist/test-framework/bin'
+    }
+    copy{
+        from 'conf/'
+        into 'dist/test-framework/conf'
+    }
+    copy{
+        from configurations.runtime
+        into 'dist/test-framework/lib'
+    }
+}
+publish.dependsOn(assemble)
