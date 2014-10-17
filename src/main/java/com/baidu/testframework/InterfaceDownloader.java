@@ -7,6 +7,7 @@ import com.google.common.base.Preconditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import java.util.List;
 
 /**
@@ -25,6 +26,6 @@ public class InterfaceDownloader {
         Preconditions.checkNotNull(webToolAddrs,"Web tool platform address not configured");
         List<Page> pages = WebPlatTool.getAllService(webToolAddrs);
         String id = WebPlatTool.getServiceId(serviceName,pages);
-        WebPlatTool.download(webToolAddrs,id,"lib");
+        WebPlatTool.download(webToolAddrs,id, ".");
     }
 }

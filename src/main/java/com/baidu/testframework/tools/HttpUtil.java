@@ -101,7 +101,7 @@ public class HttpUtil {
                     log.debug("redirect to " + newuri);
                     request.setURI(new URI(newuri));
                     response = this.getClient().execute(request);
-                    showResponse(response);
+//                    showResponse(response);
                 } else {
                     log.debug("Invalid redirect");
                 }
