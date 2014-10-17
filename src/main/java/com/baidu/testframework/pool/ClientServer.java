@@ -11,6 +11,7 @@ import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
@@ -26,7 +27,7 @@ public class ClientServer {
     private MethodConfig methodConfig;
     private MethodSelector methodSelector;
 
-    public ClientServer(String name,MethodConfig methodConfig, MethodSelector methodSelector,ClientConfigProvider clientConfigProvider) {
+    public ClientServer(String name, MethodConfig methodConfig, MethodSelector methodSelector, ClientConfigProvider clientConfigProvider) {
         this.methodConfig = methodConfig;
         this.methodSelector = methodSelector;
         this.clientConfigProvider = clientConfigProvider;
@@ -51,6 +52,7 @@ public class ClientServer {
     //任务请求线程
     class RequestTask extends Thread {
         private final String name;
+
         public RequestTask(String name) {
             this.name = name;
         }
@@ -66,7 +68,7 @@ public class ClientServer {
                     try {
                         Thread.sleep(clientConfigProvider.getFailedRequestDelay());
                     } catch (InterruptedException ex1) {
-                        log.error("Sleep error:",ex1);
+                        log.error("Sleep error:", ex1);
                     }
                 }
             }
@@ -81,7 +83,15 @@ public class ClientServer {
                  */
                 MethodParam methodParam = methodSelector.getMethod(methodConfig.getReflectMethods());
                 Method method = methodParam.getMethod();
-                method.invoke(client,methodParam.getMethodParam());
+                method.invoke(client, methodParam.getMethodParam());
+            } catch (InvocationTargetException ex) {
+                if (ex.getCause() != null) {
+                    log.error("业务异常，调用RPC接口失败", ex);
+                } else {
+                    log.error("反射方法调用异常",ex);
+                }
+                throw ex;
+
             } finally {
                 source.returnClient(client);
             }
@@ -89,7 +99,7 @@ public class ClientServer {
             try {
                 Thread.sleep(clientConfigProvider.getRequestDelay());
             } catch (InterruptedException ex1) {
-                log.error("Sleep error:",ex1);
+                log.error("Sleep error:", ex1);
             }
         }
 
