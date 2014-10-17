@@ -27,6 +27,16 @@ public class FrameworkConfig {
     private String reportName;
     //被测试的接口类
     private Class testClazz;
+    @Value("${tf.webtoolplat.adds}")
+    private String webToolPlatAddrsCfg;
+
+    public String getWebToolPlatAddrsCfg() {
+        return webToolPlatAddrsCfg;
+    }
+
+    public void setWebToolPlatAddrsCfg(String webToolPlatAddrsCfg) {
+        this.webToolPlatAddrsCfg = webToolPlatAddrsCfg;
+    }
 
     public String getGangliaAddrsCfg() {
         return gangliaAddrsCfg;

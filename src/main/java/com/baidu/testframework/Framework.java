@@ -11,8 +11,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 /**
  * Created by edwardsbean on 14-10-14.
  */
-public class FrameworkMain {
-    private final static Logger log = LoggerFactory.getLogger(FrameworkMain.class.getName());
+public class Framework {
+    private final static Logger log = LoggerFactory.getLogger(Framework.class.getName());
     public static ClassPathXmlApplicationContext context;
     public static void main(String[] args) {
         try {

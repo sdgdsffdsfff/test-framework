@@ -24,6 +24,9 @@ src/main/java/com/baidu/softquery
 # Maven
 target/
 
+# Gradle
+.gradle
+
 # IntelliJ project files
 *.iml
 *.iws
