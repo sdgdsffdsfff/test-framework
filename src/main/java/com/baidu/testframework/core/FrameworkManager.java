@@ -8,6 +8,7 @@ import com.baidu.testframework.config.FrameworkConfig;
 import com.baidu.testframework.config.MethodConfig;
 import com.baidu.testframework.pool.ClientServer;
 import com.codahale.metrics.ConsoleReporter;
+import com.codahale.metrics.Meter;
 import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.Timer;
 import com.codahale.metrics.ganglia.GangliaReporter;
@@ -30,6 +31,7 @@ public class FrameworkManager {
     public static final MetricRegistry metricRegistry = new MetricRegistry();
     public static Timer timer;
     public static GMetric ganglia;
+    public static Meter failCount;
 
     public FrameworkManager(MethodConfig methodConfig, FrameworkConfig frameworkConfig) {
         this.methodConfig = methodConfig;
@@ -64,8 +66,10 @@ public class FrameworkManager {
             }
         }
         //qps
-        timer = metricRegistry.timer(MetricRegistry.name("test-framework", frameworkConfig.getReportName()));
+        timer = metricRegistry.timer(MetricRegistry.name("test-framework", frameworkConfig.getReportName(),"request"));
 
+        //fail count
+        failCount = metricRegistry.meter(MetricRegistry.name("test-framework", frameworkConfig.getReportName(),"fail"));
     }
 
     public void stopApplication() {
