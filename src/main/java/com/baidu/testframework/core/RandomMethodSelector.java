@@ -1,6 +1,7 @@
 package com.baidu.testframework.core;
 
-import java.util.*;
+import java.util.List;
+import java.util.Random;
 
 /**
  * 随机获取一个待测试的方法

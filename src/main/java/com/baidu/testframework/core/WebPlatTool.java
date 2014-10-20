@@ -26,10 +26,10 @@ public class WebPlatTool {
 
     public static final String ROOT = "webtoolplat";
 
-    public static String getServiceId(String serviceName,List<Page> pages) throws Exception {
-        for (Page page:pages){
-            for (ServiceDefine serviceDefine:page.getRows()) {
-                if (serviceName.equals(serviceDefine.getRegname())){
+    public static String getServiceId(String serviceName, List<Page> pages) throws Exception {
+        for (Page page : pages) {
+            for (ServiceDefine serviceDefine : page.getRows()) {
+                if (serviceName.equals(serviceDefine.getRegname())) {
                     return serviceDefine.getId();
                 }
             }
@@ -40,20 +40,20 @@ public class WebPlatTool {
     public static List<Page> getAllService(String webToolAddrs) throws Exception {
         int pageNum = 1;
         List<Page> list = new ArrayList<Page>();
-        getService(webToolAddrs,1,20,list);
+        getService(webToolAddrs, 1, 20, list);
         return list;
     }
 
-    private static void getService(String webToolAddrs,int pageNum,int rows,List<Page> list) throws Exception {
-        HttpUtil httpUtil  = new HttpUtil();
+    private static void getService(String webToolAddrs, int pageNum, int rows, List<Page> list) throws Exception {
+        HttpUtil httpUtil = new HttpUtil();
         List<NameValuePair> formParams = new ArrayList<NameValuePair>();// 设置表格参数
-        formParams.add(new BasicNameValuePair("page",pageNum + ""));
+        formParams.add(new BasicNameValuePair("page", pageNum + ""));
         formParams.add(new BasicNameValuePair("rows", rows + ""));
         UrlEncodedFormEntity uefEntity = uefEntity = new UrlEncodedFormEntity(formParams, "UTF-8");//获取实体对象
-        HttpResponse response = httpUtil.doPost(webToolAddrs + "/" + ROOT +"/" + "infSerList_intfSer.action", uefEntity, null);
+        HttpResponse response = httpUtil.doPost(webToolAddrs + "/" + ROOT + "/" + "infSerList_intfSer.action", uefEntity, null);
         String json = EntityUtils.toString(response.getEntity());
         Gson gson = new Gson();
-        Page page = gson.fromJson(json,Page.class);
+        Page page = gson.fromJson(json, Page.class);
         httpUtil.releaseConnection();
         list.add(page);
         log.debug("Got service define:" + page.toString());
@@ -63,11 +63,11 @@ public class WebPlatTool {
         }
     }
 
-    public static void download(String webToolAddrs,String serviceId,String path) throws Exception {
+    public static void download(String webToolAddrs, String serviceId, String path) throws Exception {
         //查找本地cache
         File file = new File(path + File.separator + serviceId + ".jar");
         log.info("Jar location:" + file.getAbsolutePath());
-        if (file.exists()){
+        if (file.exists()) {
             log.info("Service interface jar already in cache");
             return;
         }
@@ -88,8 +88,8 @@ public class WebPlatTool {
             }
 
             httpUtil.releaseConnection();
-        }catch (Exception e){
-            log.error("Download fail,delete file " + file.getName(),e);
+        } catch (Exception e) {
+            log.error("Download fail,delete file " + file.getName(), e);
             file.delete();
             throw e;
         }

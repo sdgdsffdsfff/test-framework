@@ -2,7 +2,6 @@ package com.baidu.testframework.core;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * Created by edwardsbean on 14-10-15.

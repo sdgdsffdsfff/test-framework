@@ -10,6 +10,7 @@ public class Hello {
     public String sayHello(String message, int time) {
         return "hello," + message + "," + time;
     }
+
     public static String sayEnum(String message, SoftSortOption sort) {
         return "hello," + message + "," + sort;
     }

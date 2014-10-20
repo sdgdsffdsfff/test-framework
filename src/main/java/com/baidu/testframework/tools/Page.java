@@ -1,6 +1,5 @@
 package com.baidu.testframework.tools;
 
-import javax.xml.ws.Service;
 import java.util.List;
 
 /**

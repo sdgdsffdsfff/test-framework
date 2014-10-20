@@ -92,7 +92,7 @@ public class ClientServer {
                 if (ex.getCause() != null) {
                     log.error("业务异常，调用RPC接口失败", ex);
                 } else {
-                    log.error("反射方法调用异常",ex);
+                    log.error("反射方法调用异常", ex);
                 }
                 throw ex;
 

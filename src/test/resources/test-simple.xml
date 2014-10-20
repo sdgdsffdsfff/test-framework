@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Test>
-<class>com.baidu.thrift.Hello</class>
+    <class>com.baidu.thrift.Hello</class>
     <methods>
         <method>
             <name>sayHello</name>

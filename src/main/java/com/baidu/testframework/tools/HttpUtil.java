@@ -22,6 +22,7 @@ public class HttpUtil {
             .class);
 
     private HttpRequestBase httpRequest;
+
     public HttpClient getClient() {
         return new DefaultHttpClient();// 获取HttpClient对象        client;
     }
@@ -60,7 +61,7 @@ public class HttpUtil {
 
     public HttpResponse doGet(String uri, String proxy) throws Exception {// get方法提交
         HttpGet getMethod = null;
-        if (!uri.startsWith("http")){
+        if (!uri.startsWith("http")) {
             uri = "http://" + uri;
         }
         getMethod = new HttpGet(uri);// 获取HttpGet对象，使用该对象提交get请求
@@ -69,7 +70,7 @@ public class HttpUtil {
 
     public HttpResponse doPost(String uri, HttpEntity entity, String proxy) throws Exception {// post方法提交
         HttpPost postMethod = null;
-        if (!uri.startsWith("http")){
+        if (!uri.startsWith("http")) {
             uri = "http://" + uri;
         }
         postMethod = new HttpPost(uri);

@@ -10,7 +10,7 @@ public class ReflectionUtilTest {
 
     @Test
     public void testNewInstance() throws Exception {
-        Person person = (Person)ReflectionUtil.newInstance(clazz,paramLine);
+        Person person = (Person) ReflectionUtil.newInstance(clazz, paramLine);
         assert person.getName().equals("edwardsbean");
         assert person.getAge().equals("23");
         assert person.getSex().equals(Sex.MAN);

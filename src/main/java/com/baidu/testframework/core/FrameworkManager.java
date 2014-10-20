@@ -64,7 +64,7 @@ public class FrameworkManager {
             }
         }
         //qps
-        timer = metricRegistry.timer(MetricRegistry.name("test-framework",frameworkConfig.getReportName()));
+        timer = metricRegistry.timer(MetricRegistry.name("test-framework", frameworkConfig.getReportName()));
 
     }
 

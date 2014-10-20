@@ -1,6 +1,5 @@
 package com.baidu.testframework;
 
-import com.baidu.testframework.example.Hello;
 import org.apache.thrift.TServiceClient;
 import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.protocol.TProtocol;
@@ -48,14 +47,15 @@ public class ReflectionTest {
     //带有参数的方法调用
     @Test
     public void testGetMethod() throws Exception {
-        Method method = demo.getDeclaredMethod("sayHello",String.class,int.class);
-        String s = (String)method.invoke(demo.newInstance(),"world","3");
+        Method method = demo.getDeclaredMethod("sayHello", String.class, int.class);
+        String s = (String) method.invoke(demo.newInstance(), "world", "3");
         System.out.println(s);
     }
+
     //获取方法参数
     @Test
     public void testGetParam() throws Exception {
-        Method method = demo.getMethod("sayHello",String.class,int.class);
+        Method method = demo.getMethod("sayHello", String.class, int.class);
         Class<?> para[] = method.getParameterTypes();
         for (int j = 0; j < para.length; ++j) {
             System.out.print(para[j].getName() + " " + "arg" + j);
@@ -64,6 +64,7 @@ public class ReflectionTest {
             }
         }
     }
+
     //获得所有方法
     @Test
     public void testGetAllMethod() throws Exception {
@@ -100,7 +101,7 @@ public class ReflectionTest {
         Method method[] = demo.getMethods();
         Method sayEnum = null;
         for (int i = 0; i < method.length; ++i) {
-            if(method[i].getName().equals("sayEnum"))
+            if (method[i].getName().equals("sayEnum"))
                 sayEnum = method[i];
         }
         System.out.println(sayEnum.getName());
@@ -108,6 +109,7 @@ public class ReflectionTest {
 
     /**
      * 获取方法中的Enum参数，并实例化
+     *
      * @throws Exception
      */
     @Test
@@ -115,14 +117,14 @@ public class ReflectionTest {
         Method method[] = demo.getMethods();
         Method sayEnum = null;
         for (int i = 0; i < method.length; ++i) {
-            if(method[i].getName().equals("sayEnum"))
+            if (method[i].getName().equals("sayEnum"))
                 sayEnum = method[i];
         }
         Class para[] = sayEnum.getParameterTypes();
         Class enumClass = para[1];
         System.out.println("get Enum param class:" + enumClass);
-        System.out.println("get Enum value:" + Enum.valueOf(enumClass,"f_idASC"));
-        System.out.println("invoke method:" + sayEnum.invoke(demo.newInstance(),"a",Enum.valueOf(enumClass,"f_idASC")));
+        System.out.println("get Enum value:" + Enum.valueOf(enumClass, "f_idASC"));
+        System.out.println("invoke method:" + sayEnum.invoke(demo.newInstance(), "a", Enum.valueOf(enumClass, "f_idASC")));
     }
 
     @Test

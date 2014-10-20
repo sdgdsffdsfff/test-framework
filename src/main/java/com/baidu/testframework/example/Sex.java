@@ -7,7 +7,8 @@ public enum Sex {
     MAN(1),
     WOMAN(2);
     private final int value;
-    private Sex(int value){
+
+    private Sex(int value) {
         this.value = value;
     }
 }
