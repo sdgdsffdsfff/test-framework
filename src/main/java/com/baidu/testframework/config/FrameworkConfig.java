@@ -116,7 +116,7 @@ public class FrameworkConfig {
         try {
             testClazz = Class.forName(serviceName.split(" ")[0] + "$Iface");
         } catch (ClassNotFoundException e) {
-            throw new ClassNotFoundException("请导入Thrift接口包");
+            throw new ClassNotFoundException("Thrift接口包不存在");
         }
         if (gangliaAddrsCfg != null) {
             if (reportName == null) {

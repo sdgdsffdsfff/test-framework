@@ -66,9 +66,9 @@ public class WebPlatTool {
     public static void download(String webToolAddrs,String serviceId,String path) throws Exception {
         //查找本地cache
         File file = new File(path + File.separator + serviceId + ".jar");
-        log.debug("Jar location:" + file.getAbsolutePath());
+        log.info("Jar location:" + file.getAbsolutePath());
         if (file.exists()){
-            log.debug("Service interface jar already in cache");
+            log.info("Service interface jar already in cache");
             return;
         }
         try {

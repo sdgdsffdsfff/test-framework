@@ -44,6 +44,7 @@ jar {
 
 task cleanBefore<<{
     delete 'dist'
+    println 'clean dist'
 }
 cleanBefore.dependsOn(clean)
 
@@ -65,11 +66,14 @@ task publish <<{
         into 'dist/test-framework/lib'
     }
 }
-publish.dependsOn(assemble)
+publish.dependsOn assemble
+publish.dependsOn cleanBefore
+assemble.shouldRunAfter cleanBefore
 
 task run<<{
     exec{
         executable 'dist/test-framework/bin/run'
     }
 }
-run.dependsOn(cleanBefore)
+
+run.dependsOn(publish)

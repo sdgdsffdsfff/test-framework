@@ -4,7 +4,6 @@
 ################################
 FRAMEWORK_HOME=/home/edwardsbean/workspace/testframework/dist/test-framework
 
-FRAMWORK_DOWNLOAD_CLASS="com.baidu.testframework.InterfaceDownloader"
 FRAMWORK_MAIN_CLASS="com.baidu.testframework.Framework"
 FRAMEWORK_CLASSPATH=""
 opt_conf=""
@@ -33,7 +32,6 @@ FRAMEWORK_CLASSPATH="${opt_conf}:${FRAMEWORK_HOME}/lib/*"
 
 run_framework() {
   echo $FRAMEWORK_CLASSPATH
-  $EXEC $JAVA_HOME/bin/java -cp $FRAMEWORK_CLASSPATH $FRAMWORK_DOWNLOAD_CLASS
   $EXEC $JAVA_HOME/bin/java -cp $FRAMEWORK_CLASSPATH $FRAMWORK_MAIN_CLASS
 }
 
