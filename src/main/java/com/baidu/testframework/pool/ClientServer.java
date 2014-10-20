@@ -7,6 +7,7 @@ import com.baidu.testframework.config.MethodConfig;
 import com.baidu.testframework.core.FrameworkManager;
 import com.baidu.testframework.core.MethodParam;
 import com.baidu.testframework.core.MethodSelector;
+import com.codahale.metrics.Timer;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -64,7 +65,10 @@ public class ClientServer {
                     request();
                 } catch (Throwable ex) {
                     log.error("RPC request error:", ex);
-                    FrameworkManager.performanceStat.incFailedCount();
+                    /**
+                     * TODO:
+                     * 使用metrics统计失败调用
+                     */
                     try {
                         Thread.sleep(clientConfigProvider.getFailedRequestDelay());
                     } catch (InterruptedException ex1) {
@@ -76,7 +80,7 @@ public class ClientServer {
 
         private void request() throws Throwable {
             Object client = source.getClient();
-            long currentTime = System.currentTimeMillis();
+            final Timer.Context context = FrameworkManager.timer.time();
             try {
                 /**
                  * RPC请求
@@ -95,7 +99,7 @@ public class ClientServer {
             } finally {
                 source.returnClient(client);
             }
-            FrameworkManager.performanceStat.setRespondTime(System.currentTimeMillis() - currentTime);
+            context.stop();
             try {
                 Thread.sleep(clientConfigProvider.getRequestDelay());
             } catch (InterruptedException ex1) {

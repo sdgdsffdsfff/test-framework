@@ -7,10 +7,17 @@ import com.baidu.testframework.config.ClientConfigProvider;
 import com.baidu.testframework.config.FrameworkConfig;
 import com.baidu.testframework.config.MethodConfig;
 import com.baidu.testframework.pool.ClientServer;
+import com.codahale.metrics.ConsoleReporter;
+import com.codahale.metrics.MetricRegistry;
+import com.codahale.metrics.Timer;
+import com.codahale.metrics.ganglia.GangliaReporter;
+import info.ganglia.gmetric4j.gmetric.GMetric;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by edwardsbean on 14-10-14.
@@ -20,7 +27,9 @@ public class FrameworkManager {
     private MethodConfig methodConfig;
     private FrameworkConfig frameworkConfig;
     private ClientConfigProvider clientConfigProvider;
-    public static PerformanceStat performanceStat;
+    public static final MetricRegistry metricRegistry = new MetricRegistry();
+    public static Timer timer;
+    public static GMetric ganglia;
 
     public FrameworkManager(MethodConfig methodConfig, FrameworkConfig frameworkConfig) {
         this.methodConfig = methodConfig;
@@ -37,9 +46,26 @@ public class FrameworkManager {
         MethodSelector methodSelector = new RandomMethodSelector();
         for (int index = 0; index < frameworkConfig.getClientServerCount(); index++) {
             log.info("Create clientServer" + index);
-            ClientServer clientServer = new ClientServer("clientServer" + index,methodConfig,methodSelector,clientConfigProvider);
+            ClientServer clientServer = new ClientServer("clientServer" + index, methodConfig, methodSelector, clientConfigProvider);
             clientServer.run();
         }
+    }
+
+    public void initStatistics() throws IOException {
+        String gangliaAddrs = frameworkConfig.getGangliaAddrsCfg();
+        //开启ganglia汇报
+        if (gangliaAddrs != null) {
+            InetSocketAddress[] address = parseSocketAddrArray(gangliaAddrs);
+            try {
+                ganglia = new GMetric(address[0].getHostName(), address[0].getPort(), GMetric.UDPAddressingMode.MULTICAST, 1);
+            } catch (IOException e) {
+                log.error("连接ganglia服务器失败", e);
+                throw e;
+            }
+        }
+        //qps
+        timer = metricRegistry.timer(MetricRegistry.name("test-framework",frameworkConfig.getReportName()));
+
     }
 
     public void stopApplication() {
@@ -49,7 +75,6 @@ public class FrameworkManager {
     }
 
     public void init() {
-        performanceStat = new PerformanceStat(10);
         InetSocketAddress[] addrs = parseSocketAddrArray(frameworkConfig.getRegAddrsCfg());
         DSFramework.start(addrs, "test-framework", 200);
         ServiceAdaptor.subscribeService(frameworkConfig.getServiceName());
@@ -60,9 +85,19 @@ public class FrameworkManager {
         }
     }
 
-    public void printResult() {
-        StatTask statTask = new StatTask("统计结果");
-        statTask.start();
+    public void startReport() {
+        GangliaReporter gangliaReporter = GangliaReporter.forRegistry(metricRegistry)
+                .convertRatesTo(TimeUnit.SECONDS)
+                .convertDurationsTo(TimeUnit.MILLISECONDS)
+                .build(ganglia);
+        gangliaReporter.start(1, TimeUnit.SECONDS);
+
+        //注册metrics,每个1秒打印metrics到控制台
+        ConsoleReporter consoleReporter = ConsoleReporter.forRegistry(metricRegistry)
+                .convertRatesTo(TimeUnit.SECONDS)
+                .convertDurationsTo(TimeUnit.MILLISECONDS)
+                .build();
+        consoleReporter.start(1, TimeUnit.SECONDS);
     }
 
     private InetSocketAddress[] parseSocketAddrArray(String cfgStr) {
