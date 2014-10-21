@@ -2,7 +2,7 @@
 ################################
 # main
 ################################
-FRAMEWORK_HOME=/home/edwardsbean/workspace/testframework/dist/test-framework
+FRAMEWORK_HOME=""
 
 FRAMWORK_MAIN_CLASS="com.baidu.testframework.Framework"
 FRAMEWORK_CLASSPATH=""
