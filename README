@@ -1,0 +1,15 @@
+自动化测试框架
+------------
+业务组使用我们组的DSF注册服务器写Thrift服务时，经常需要压测，为了方便测试，写了个自动化测试框架。
+
+###功能
+1. 自动从服务平台（webtoolplat)下载Thrift接口包，并导入测试框架
+2. 以配置方式描述需要测试的业务接口
+3. 结合ganglia图形化数据监控
+
+
+###使用方法
+1. 在spring配置conf/application.xml中，往MethodConfig
+对象中注入要测试的方法，以及方法参数值。
+2. 在conf/appconfig.properties中配置测试参数,需要测试的服务等。
+3. bin/run中配置框架的FRAMEWORK_HOME,并运行bin/run
