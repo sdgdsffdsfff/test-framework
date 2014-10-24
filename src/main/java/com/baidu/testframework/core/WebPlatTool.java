@@ -38,7 +38,6 @@ public class WebPlatTool {
     }
 
     public static List<Page> getAllService(String webToolAddrs) throws Exception {
-        int pageNum = 1;
         List<Page> list = new ArrayList<Page>();
         getService(webToolAddrs, 1, 20, list);
         return list;
@@ -63,14 +62,10 @@ public class WebPlatTool {
         }
     }
 
-    public static void download(String webToolAddrs, String serviceId, String path) throws Exception {
+    public static File download(String webToolAddrs, String serviceId, String path) throws Exception {
         //查找本地cache
         File file = new File(path + File.separator + serviceId + ".jar");
         log.info("Jar location:" + file.getAbsolutePath());
-        if (file.exists()) {
-            log.info("Service interface jar already in cache");
-            return;
-        }
         try {
             file.createNewFile();
             log.debug("Downloading file:" + file.getAbsolutePath());
@@ -78,7 +73,6 @@ public class WebPlatTool {
             List<NameValuePair> formParams = new ArrayList<NameValuePair>();// 设置表格参数
             formParams.add(new BasicNameValuePair("language", "java"));
             formParams.add(new BasicNameValuePair("id", serviceId));
-            UrlEncodedFormEntity uefEntity = uefEntity = new UrlEncodedFormEntity(formParams, "UTF-8");//获取实体对象
             HttpResponse response = httpUtil.doGet(webToolAddrs + "/" + ROOT + "/" + "download.action", null);
             InputStream inputStream = response.getEntity().getContent();
             byte buff[] = new byte[4096];
@@ -86,8 +80,8 @@ public class WebPlatTool {
             while ((counts = inputStream.read(buff)) != -1) {
                 Files.write(buff, file);
             }
-
             httpUtil.releaseConnection();
+            return file;
         } catch (Exception e) {
             log.error("Download fail,delete file " + file.getName(), e);
             file.delete();

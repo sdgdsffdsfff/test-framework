@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.io.File;
 import java.util.List;
 
 
@@ -35,7 +36,7 @@ public class Framework {
             Preconditions.checkNotNull(webToolAddrs, "Web tool platform address not configured");
             List<Page> pages = WebPlatTool.getAllService(webToolAddrs);
             String id = WebPlatTool.getServiceId(serviceName, pages);
-            WebPlatTool.download(webToolAddrs, id, "lib");
+            final File jar = WebPlatTool.download(webToolAddrs, id, "lib");
 
             //检查框架配置
             log.info("Checking configuation");
@@ -52,6 +53,7 @@ public class Framework {
             Runtime.getRuntime().addShutdownHook(new Thread("agent-shutdown-hook") {
                 @Override
                 public void run() {
+                    jar.delete();
                     reference.stopApplication();
                 }
             });

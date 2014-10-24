@@ -80,27 +80,27 @@ public class ClientServer {
 
         private void request() throws Throwable {
             Object client = source.getClient();
-            final Timer.Context context = FrameworkManager.timer.time();
             try {
                 /**
                  * RPC请求
                  */
+                final Timer.Context context = FrameworkManager.timer.time();
                 MethodParam methodParam = methodSelector.getMethod(methodConfig.getReflectMethods());
                 Method method = methodParam.getMethod();
                 method.invoke(client, methodParam.getMethodParam());
+                context.stop();
             } catch (InvocationTargetException ex) {
                 if (ex.getCause() != null) {
                     log.error("业务异常，调用RPC接口失败", ex);
+                    FrameworkManager.failCount.mark();
                 } else {
                     log.error("反射方法调用异常", ex);
-                    FrameworkManager.failCount.mark();
                 }
                 throw ex;
 
             } finally {
                 source.returnClient(client);
             }
-            context.stop();
             try {
                 Thread.sleep(clientConfigProvider.getRequestDelay());
             } catch (InterruptedException ex1) {
